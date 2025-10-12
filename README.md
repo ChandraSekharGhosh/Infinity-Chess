@@ -1,1 +1,1 @@
-This is Infinity Chess
+# This is Infinity Chess
