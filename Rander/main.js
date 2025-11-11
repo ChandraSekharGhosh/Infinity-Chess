@@ -110,4 +110,11 @@ function initGameRander(data) {
     pieceRender(data);
 }
 
-export { initGameRander };
+//rander hightlight circle
+function renderHighlight(squareId) {
+    const hightlightSpan = document.createElement("span");
+    hightlightSpan.classList.add("highlight");
+    document.getElementById(squareId).appendChild(hightlightSpan);
+}
+
+export { initGameRander, renderHighlight };
