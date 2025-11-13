@@ -1,7 +1,10 @@
 import { ROOT_DIV } from "../Helper/constants.js";
 import { globalState } from "../index.js";
 import { renderHighlight } from "../Rander/main.js";
-import { hightlight_state } from "../Helper/constants.js";
+import { clearHightlight } from "../Rander/main.js";
+
+//hightlighted or not => state
+let hightlight_state = false;
 
 function whitePawnClick({piece}) {
     const current_pos = piece.current_position;
@@ -17,19 +20,18 @@ function whitePawnClick({piece}) {
             globalState.forEach((row) => {
                 row.forEach((element) => {
                     if (element.id == hightlight) {
-                        element.hightlight = true;
-                        //  console.log(element);
-                        
+                        element.hightlight(true);
+                        //      
                     }
                 });
             });
             
-            if (hightlight_state) clearHightlight();
-            renderHighlight(hightlight);
-            hightlight_state = true;
+            // if (hightlight_state) clearHightlight();
+            // renderHighlight(hightlight);
+            // hightlight_state = true;
         });
     }
-    console.log(globalState);
+    // console.log(globalState);
 }    
 
 function GlobalEvent() {

@@ -119,15 +119,9 @@ function renderHighlight(squareId) {
 
 //clear all hightlights from the board
 function clearHightlight() {
-    globalState.forEach((row) => {
-                row.forEach((element) => {
-                    if (element.id == hightlight) {
-                        element.hightlight = true;
-                        //  console.log(element);
-                        
-                    }
-                });
-            });
+    const flatData = globalState.flat();
+    // console.log(flatData);
+    
 }
 
-export { initGameRander, renderHighlight };
+export { initGameRander, renderHighlight, clearHightlight };

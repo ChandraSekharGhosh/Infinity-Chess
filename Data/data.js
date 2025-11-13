@@ -1,7 +1,13 @@
 
 //for each square
 function Square(colour, id, piece) {
-    return { colour, id, piece };
+
+    const hightlight = function (){
+        console.log("square");
+        console.log(this);
+    }
+
+    return { colour, id, piece, hightlight };
 }
 
 function SquareRow(rowId) {
