@@ -1,11 +1,12 @@
 import { renderHighlight } from "../Rander/main.js";
+import { globalState } from "../index.js";
 
 //for each square
 function Square(colour, id, piece) {
 
     const highlight = function (){
         renderHighlight(this.id);
-        this.hightlighted = true;
+        this.highlighted = true;
     };
 
     return { colour, id, piece, highlight };

@@ -16,12 +16,13 @@ function whitePawnClick({piece}) {
             `${current_pos[0]}${Number(current_pos[1]) + 2}`,
         ];
 
+        // clear board for any privious highlight
+        clearHightlight();
         hightlightSquareIds.forEach((hightlight) => {
             globalState.forEach((row) => {
                 row.forEach((element) => {
                     if (element.id == hightlight) {
                         element.highlight(true);
-                        //      
                     }
                 });
             });

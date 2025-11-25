@@ -115,17 +115,18 @@ function renderHighlight(squareId) {
     const hightlightSpan = document.createElement("span");
     hightlightSpan.classList.add("highlight");
     document.getElementById(squareId).appendChild(hightlightSpan);
-    clearHightlight();
 }
 
 //clear all hightlights from the board
 function clearHightlight() {
+
+    // console.log(globalState);
+    
     const flatData = globalState.flat();
     flatData.forEach((el) => {
-        console.log(el);
-        
-        if (el.highlighted) {
-            console.log(el);
+        if(el.highlighted) {
+            document.getElementById(el.id).innerHTML = "";
+            el.highlighted = false;
         }
     });
     
