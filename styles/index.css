@@ -30,6 +30,10 @@ body {
     background-color: #B58863;
 }
 
+.highlightYellow {
+    background: #f7f769;
+}
+
 .piece{
     width: 100%;
     height: auto;

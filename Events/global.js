@@ -2,11 +2,21 @@ import { ROOT_DIV } from "../Helper/constants.js";
 import { globalState } from "../index.js";
 import { renderHighlight } from "../Rander/main.js";
 import { clearHightlight } from "../Rander/main.js";
+import { selfHighlight } from "../Rander/main.js";
+import { claerPreviousSelfHighlight } from "../Rander/main.js";
 
 //hightlighted or not => state
 let hightlight_state = false;
 
+//current self-highlighted square state
+let selfHighlightState = null;
+
 function whitePawnClick({piece}) {
+    //highlight clicked element
+    claerPreviousSelfHighlight(selfHighlightState);
+    selfHighlight(piece);
+    selfHighlightState = piece;
+
     const current_pos = piece.current_position;
     const flatArray = globalState.flat();
     // on initial position

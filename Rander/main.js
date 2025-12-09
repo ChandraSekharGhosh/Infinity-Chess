@@ -4,6 +4,20 @@ import * as piece from "../Data/pieces.js";
 import { ROOT_DIV } from "../Helper/constants.js";
 import { globalState } from "../index.js";
 
+function claerPreviousSelfHighlight(piece) {
+
+    console.log(piece);
+    
+
+    if(piece) {
+        document.getElementById(piece.current_position).classList.remove("highlightYellow");
+    }
+}
+
+function selfHighlight(piece) {
+    document.getElementById(piece.current_position).classList.add("highlightYellow");
+}
+
 //use to render pieces on board
 function pieceRender(data) {
     data.forEach(row => {
@@ -132,4 +146,4 @@ function clearHightlight() {
     
 }
 
-export { initGameRander, renderHighlight, clearHightlight };
+export { initGameRander, renderHighlight, clearHightlight, selfHighlight, claerPreviousSelfHighlight };
