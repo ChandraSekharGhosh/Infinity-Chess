@@ -4,6 +4,7 @@ import { renderHighlight } from "../Rander/main.js";
 import { clearHightlight } from "../Rander/main.js";
 import { selfHighlight } from "../Rander/main.js";
 import { claerPreviousSelfHighlight } from "../Rander/main.js";
+import { moveElement } from "../Rander/main.js";
 
 //hightlighted or not => state
 let hightlight_state = false;
@@ -11,11 +12,25 @@ let hightlight_state = false;
 //current self-highlighted square state
 let selfHighlightState = null;
 
+//in move state or not
+let moveState = null;
+
 function whitePawnClick({piece}) {
+    //if clicked on same element twice
+    if (piece == selfHighlightState) {
+        claerPreviousSelfHighlight(selfHighlightState);
+        selfHighlightState = null;
+        clearHightlight();
+        return;
+    }
+
     //highlight clicked element
     claerPreviousSelfHighlight(selfHighlightState);
     selfHighlight(piece);
     selfHighlightState = piece;
+
+    //add piece as move state
+    moveState = piece;
 
     const current_pos = piece.current_position;
     const flatArray = globalState.flat();
@@ -55,8 +70,26 @@ function GlobalEvent() {
             if (square.piece.piece_name == "WHITE_PAWN") {
                 whitePawnClick(square);
             }
+        } else{
+
+            const childElementsOfclickedEl = Array.from(event.target.childNodes)
+            
+            if (childElementsOfclickedEl.length == 1 || event.target.localName == "span") {
+                if (event.target.localName == "span") {
+                    const id = event.target.parentNode.id;
+                    moveElement(moveState, id);
+                    moveState = null;
+                } else {
+                    const id = event.target.id;
+                    moveElement(moveState, id);
+                    moveState = null;
+                }
+            } else {
+                //clear all highlights
+                clearHightlight();
+                claerPreviousSelfHighlight(selfHighlightState);
+            }
         }
-        
     });
 }
 

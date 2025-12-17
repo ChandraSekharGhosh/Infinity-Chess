@@ -4,11 +4,32 @@ import * as piece from "../Data/pieces.js";
 import { ROOT_DIV } from "../Helper/constants.js";
 import { globalState } from "../index.js";
 
+// move element to square to id
+function moveElement(piece, id) {
+    const flatData = globalState.flat();
+
+    flatData.forEach((el) => {
+       if (el.id == piece.current_position) {
+        delete el.piece;
+       }
+
+       if (el.id == id) {
+        el.piece = piece;
+       }
+    });
+
+    clearHightlight();
+
+    const priviousPiece = document.getElementById(piece.current_position)
+    priviousPiece.classList.remove("highlightYellow");
+    const currentPiece = document.getElementById(id);
+    currentPiece.innerHTML = priviousPiece.innerHTML;
+    priviousPiece.innerHTML = "";
+
+    piece.current_position = id;
+}
+
 function claerPreviousSelfHighlight(piece) {
-
-    console.log(piece);
-    
-
     if(piece) {
         document.getElementById(piece.current_position).classList.remove("highlightYellow");
     }
@@ -133,10 +154,8 @@ function renderHighlight(squareId) {
 
 //clear all hightlights from the board
 function clearHightlight() {
-
-    // console.log(globalState);
-    
     const flatData = globalState.flat();
+
     flatData.forEach((el) => {
         if(el.highlighted) {
             document.getElementById(el.id).innerHTML = "";
@@ -146,4 +165,4 @@ function clearHightlight() {
     
 }
 
-export { initGameRander, renderHighlight, clearHightlight, selfHighlight, claerPreviousSelfHighlight };
+export { initGameRander, renderHighlight, clearHightlight, selfHighlight, claerPreviousSelfHighlight, moveElement };
