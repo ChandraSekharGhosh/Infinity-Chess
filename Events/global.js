@@ -15,6 +15,7 @@ let selfHighlightState = null;
 //in move state or not
 let moveState = null;
 
+//white pawn event
 function whitePawnClick({piece}) {
     //if clicked on same element twice
     if (piece == selfHighlightState) {
@@ -25,7 +26,6 @@ function whitePawnClick({piece}) {
     }
 
     //highlight clicked element
-    claerPreviousSelfHighlight(selfHighlightState);
     selfHighlight(piece);
     selfHighlightState = piece;
 
@@ -51,14 +51,87 @@ function whitePawnClick({piece}) {
                     }
                 });
             });
-            
-            // if (hightlight_state) clearHightlight();
-            // renderHighlight(hightlight);
-            // hightlight_state = true;
+        });
+    } else {
+
+        console.log(current_pos);
+        
+
+        const hightlightSquareIds = [
+            `${current_pos[0]}${Number(current_pos[1]) + 1}`,
+        ];
+
+        // clear board for any privious highlight
+        clearHightlight();
+        hightlightSquareIds.forEach((hightlight) => {
+            globalState.forEach((row) => {
+                row.forEach((element) => {
+                    if (element.id == hightlight) {
+                        element.highlight(true);
+                    }
+                });
+            });
         });
     }
     // console.log(globalState);
-}    
+}
+
+//black pawn event
+function blackPawnClick({piece}) {
+    //if clicked on same element twice
+    if (piece == selfHighlightState) {
+        claerPreviousSelfHighlight(selfHighlightState);
+        selfHighlightState = null;
+        clearHightlight();
+        return;
+    }
+
+    //highlight clicked element
+    selfHighlight(piece);
+    selfHighlightState = piece;
+
+    //add piece as move state
+    moveState = piece;
+
+    const current_pos = piece.current_position;
+    const flatArray = globalState.flat();
+    // on initial position
+    if (current_pos[1] == "7") {
+        const hightlightSquareIds = [
+            `${current_pos[0]}${Number(current_pos[1]) - 1}`,
+            `${current_pos[0]}${Number(current_pos[1]) - 2}`,
+        ];
+
+        // clear board for any privious highlight
+        clearHightlight();
+        hightlightSquareIds.forEach((hightlight) => {
+            globalState.forEach((row) => {
+                row.forEach((element) => {
+                    if (element.id == hightlight) {
+                        element.highlight(true);
+                    }
+                });
+            });
+        });
+    } else {
+        const hightlightSquareIds = [
+            `${current_pos[0]}${Number(current_pos[1]) - 1}`,
+        ];
+
+        // clear board for any privious highlight
+        clearHightlight();
+        hightlightSquareIds.forEach((hightlight) => {
+            globalState.forEach((row) => {
+                row.forEach((element) => {
+                    if (element.id == hightlight) {
+                        element.highlight(true);
+                    }
+                });
+            });
+        });
+    }
+    // console.log(globalState);
+}
 
 function GlobalEvent() {
     ROOT_DIV.addEventListener("click", function (event) {
@@ -69,6 +142,8 @@ function GlobalEvent() {
             //console.log(square);
             if (square.piece.piece_name == "WHITE_PAWN") {
                 whitePawnClick(square);
+            } else if (square.piece.piece_name == "BLACK_PAWN") {
+                blackPawnClick(square);
             }
         } else{
 
@@ -84,10 +159,15 @@ function GlobalEvent() {
                     moveElement(moveState, id);
                     moveState = null;
                 }
+
+                clearHightlight();
+                claerPreviousSelfHighlight(selfHighlightState);
+                selfHighlightState = null;
             } else {
                 //clear all highlights
                 clearHightlight();
                 claerPreviousSelfHighlight(selfHighlightState);
+                selfHighlightState = null;
             }
         }
     });
