@@ -53,9 +53,13 @@ function whitePawnClick({piece}) {
             });
         });
     } else {
+        const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${Number(current_pos[1]) + 1}`;
+        const col2 = `${String.fromCharCode(current_pos[0].charCodeAt(0) + 1)}${Number(current_pos[1]) + 1}`;
 
         console.log(current_pos);
-        
+        console.log(col1, col2);
+
+        const captureIds = [];
 
         const hightlightSquareIds = [
             `${current_pos[0]}${Number(current_pos[1]) + 1}`,
