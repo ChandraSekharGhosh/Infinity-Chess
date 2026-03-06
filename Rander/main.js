@@ -157,6 +157,10 @@ function clearHightlight() {
     const flatData = globalState.flat();
 
     flatData.forEach((el) => {
+        if (el.captureHighlight) {
+            document.getElementById(el.id).classList.remove("captureColor");
+        }
+
         if(el.highlighted) {
             document.getElementById(el.id).innerHTML = "";
             el.highlighted = false;

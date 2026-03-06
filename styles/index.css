@@ -40,6 +40,10 @@ body {
     cursor: pointer;
 }
 
+.captureColor{
+    background-color: #F7000D;
+}
+
 .highlight{
     width: 30px;
     height: 30px;

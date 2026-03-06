@@ -5,6 +5,7 @@ import { clearHightlight } from "../Rander/main.js";
 import { selfHighlight } from "../Rander/main.js";
 import { claerPreviousSelfHighlight } from "../Rander/main.js";
 import { moveElement } from "../Rander/main.js";
+import { checkPieceOfOpponentOnElement } from "../Helper/commonHelper.js";
 
 //hightlighted or not => state
 let hightlight_state = false;
@@ -17,6 +18,8 @@ let moveState = null;
 
 //white pawn event
 function whitePawnClick({piece}) {
+    claerPreviousSelfHighlight(selfHighlightState);
+
     //if clicked on same element twice
     if (piece == selfHighlightState) {
         claerPreviousSelfHighlight(selfHighlightState);
@@ -41,8 +44,6 @@ function whitePawnClick({piece}) {
             `${current_pos[0]}${Number(current_pos[1]) + 2}`,
         ];
 
-        // clear board for any privious highlight
-        clearHightlight();
         hightlightSquareIds.forEach((hightlight) => {
             globalState.forEach((row) => {
                 row.forEach((element) => {
@@ -56,14 +57,15 @@ function whitePawnClick({piece}) {
         const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${Number(current_pos[1]) + 1}`;
         const col2 = `${String.fromCharCode(current_pos[0].charCodeAt(0) + 1)}${Number(current_pos[1]) + 1}`;
 
-        console.log(current_pos);
-        console.log(col1, col2);
-
-        const captureIds = [];
+        const captureIds = [col1, col2];
 
         const hightlightSquareIds = [
             `${current_pos[0]}${Number(current_pos[1]) + 1}`,
         ];
+
+        captureIds.forEach((element) => {
+            checkPieceOfOpponentOnElement(element, "white");
+        });
 
         // clear board for any privious highlight
         clearHightlight();
@@ -82,6 +84,8 @@ function whitePawnClick({piece}) {
 
 //black pawn event
 function blackPawnClick({piece}) {
+    claerPreviousSelfHighlight(selfHighlightState);
+
     //if clicked on same element twice
     if (piece == selfHighlightState) {
         claerPreviousSelfHighlight(selfHighlightState);
@@ -164,9 +168,6 @@ function GlobalEvent() {
                     moveState = null;
                 }
 
-                clearHightlight();
-                claerPreviousSelfHighlight(selfHighlightState);
-                selfHighlightState = null;
             } else {
                 //clear all highlights
                 clearHightlight();
