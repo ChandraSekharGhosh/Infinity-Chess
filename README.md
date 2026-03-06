@@ -6,4 +6,4 @@ Soumik Ghosal: Backend/ Web Tester <br>
 Sk Fardeen Mahmud: Front-End Devoloper <br>
 Firdaushi Parbhin: Designer
 <br>
-(part 11:- done)
+(part 12:- done, but need to veryfy(rechack the whole video) before going forward)
